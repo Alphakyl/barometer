@@ -10,13 +10,13 @@ def talker():
 	rospy.init_node('USBTenki_Barometer', anonymous=True)
 	rate = rospy.Rate(1)
 
-	cmd = '../src/usbtenki-2.1.17/client/./usbtenkiget -i 0,1,262'
+	cmd = '~/catkin_ws/src/barometer/src/usbtenki-2.1.17/client/usbtenkiget -i 0,1,262'
 	msg = Float32()
 
 	while not rospy.is_shutdown():
+		#os.system("pwd")
 		so = os.popen(cmd).read()
 		x=so.split(", ")
-		msg.header.stamp = rospy.Time.now()
 		msg.data = float(x[0])
 		pubP.publish(msg)
 		msg.data = float(x[1])
